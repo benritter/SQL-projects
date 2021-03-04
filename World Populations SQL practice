@@ -1,37 +1,39 @@
-https://docs.google.com/document/d/1wTeVs9yQAkOT1un9Z5NugfbpqXH8y0HupjEZOuPZ-Lg/edit?usp=sharing
-Overview
-This project is slightly different than others you have encountered thus far on Codecademy. Instead of a step-by-step tutorial, this project contains a series of open-ended requirements which describe the project you’ll be building. There are many possible ways to correctly fulfill all of these requirements, and you should expect to use the internet, Codecademy, and other resources when you encounter a problem that you cannot easily solve.
-Project Goals
-You’ll work with a dataset of world population by country data from recent years. You’ll write queries to retrieve interesting data and answer a set of specific questions.
-In this project, you’ll answer questions using a database of world population by country.
-There are two tables:
-countries
-Column      Type       Notes
-id          INTEGER    Primary Key
-name        TEXT
-continent   TEXT
+--https://docs.google.com/document/d/1wTeVs9yQAkOT1un9Z5NugfbpqXH8y0HupjEZOuPZ-Lg/edit?usp=sharing
+--Overview
+--This project is slightly different than others you have encountered thus far on Codecademy. Instead of a step-by-step tutorial, this project contains a series of open-ended requirements which describe the project you’ll be building. There are many possible ways to correctly fulfill all of these requirements, and you should expect to use the internet, Codecademy, and other resources when you encounter a problem that you cannot easily solve.
+--Project Goals
+--You’ll work with a dataset of world population by country data from recent years. You’ll write queries to retrieve interesting data and answer a set of specific questions.
+--In this project, you’ll answer questions using a database of world population by country.
+--There are two tables:
+--countries
+--Column      Type       Notes
+--id          INTEGER    Primary Key
+--name        TEXT
+--continent   TEXT
 
 
 
-population_years
-Column          Type         Notes
-id              INTEGER      Primary Key
-population      NUMBER       (in millions)
-year            NUMBER
-country_id      INTEGER      Foreign Key
+--population_years
+--Column          Type         Notes
+--id              INTEGER      Primary Key
+--population      NUMBER       (in millions)
+--year            NUMBER
+--country_id      INTEGER      Foreign Key
 
-Refer to this schema as you write queries to the database.
-When you finish this project, you should be able to answer each the questions that follow using a single SQL query.
-1.
-How many entries in the countries table are from Africa?
+--Refer to this schema as you write queries to the database.
+--When you finish this project, you should be able to answer each the questions that follow using a single SQL query.
+--1.
+--How many entries in the countries table are from Africa?
+
 SELECT COUNT(*) AS 'countries_in_africa'
 FROM countries
 WHERE continent='Africa';
 --56
 
 
-2.
-What was the total population of the continent of Oceania in 2005?
+--2.
+--What was the total population of the continent of Oceania in 2005?
+
 SELECT ROUND(SUM(population),2) AS 'oceania_population_2005'
 FROM population_years
 JOIN countries
@@ -40,8 +42,9 @@ WHERE continent='Oceania'
 AND year='2005';
 --32.66
 
-3.
-What is the average population of countries in South America in 2003?
+--3.
+--What is the average population of countries in South America in 2003?
+
 SELECT ROUND(AVG(population),2) 'southamericancountries_avg_population_2003'
 FROM population_years
 JOIN countries
@@ -50,8 +53,9 @@ WHERE continent='South America'
 AND year='2003';
 --25.89
 
-4.
-What country had the smallest population in 2007?
+--4.
+--What country had the smallest population in 2007?
+
 SELECT MIN(population) AS '2007_lowestpopulation', name 
 FROM population_years
 JOIN countries
@@ -59,8 +63,9 @@ ON population_years.country_id=countries.id
 WHERE year='2007';
 --0.00216 Niue
 
-5.
-What is the average population of Poland during the time period covered by this dataset?
+--5.
+--What is the average population of Poland during the time period covered by this dataset?
+
 SELECT ROUND(AVG(population),2) AS 'Poland_avg_population'
 FROM population_years
 JOIN countries
@@ -68,14 +73,16 @@ ON population_years.country_id=countries.id
 WHERE name='Poland';
 --38.56
 
-6.
-How many countries have the word “The” in their name?
+--6.
+--How many countries have the word “The” in their name?
+
 SELECT COUNT(*) AS 'countrieswith_the_inname'
 FROM countries
 WHERE name LIKE '%The%';
 
-7.
-What was the total population of each continent in 2010?
+--7.
+--What was the total population of each continent in 2010?
+
 SELECT SUM(population) AS 'continent_total_populations_2010', continent 
 FROM population_years
 JOIN countries
@@ -83,13 +90,13 @@ ON population_years.country_id=countries.id
 GROUP BY 2;
 
 
-continent_total_populations_2010         continent
-9972.25333                               Africa
-43060.62809                              Asia
-7991.48186                               Europe
-5643.75671000001                         North America
-359.47808                                Oceania
-4096.11401                               South America
+--continent_total_populations_2010         continent
+--9972.25333                               Africa
+--43060.62809                              Asia
+--7991.48186                               Europe
+--5643.75671000001                         North America
+--359.47808                                Oceania
+--4096.11401                               South America
 
 
 
